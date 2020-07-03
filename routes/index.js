@@ -31,8 +31,6 @@ router.post('/register', function (req, res) {
     lastName: req.body.lastName,
     email: req.body.email,
   });
-  console.log(req.body.password);
-  console.log(req.body.confirmPassword);
   if (req.body.password !== req.body.confirmPassword) {
     req.flash('error', 'Password must match');
     return res.redirect('./register');

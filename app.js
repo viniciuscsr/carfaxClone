@@ -16,10 +16,20 @@ const commentRoutes = require('./routes/comments'),
 
 // APP CONFIG
 
-mongoose.connect('mongodb://localhost/carros', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  'mongodb+srv://Vinicius:vini1306@cluster0-4gadr.mongodb.net/usedCarsApp?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => {
+    console.log('DB connected');
+  }
+);
+// mongoose.connect('mongodb://localhost/carros', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
