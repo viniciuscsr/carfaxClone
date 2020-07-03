@@ -72,6 +72,6 @@ app.use(indexRoutes);
 app.use('/cars', carRoutes);
 app.use('/cars/:id/comments', commentRoutes);
 
-app.listen(3000, function () {
-  console.log('SERVER IS RUNNING ON PORT 3000');
+app.listen(process.env.PORT || 5000, function () {
+  console.log('SERVER IS RUNNING ON PORT 5000');
 });
