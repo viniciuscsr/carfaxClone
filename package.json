@@ -4,7 +4,7 @@
   "description": "site da 9k race",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "node app.js"
   },
   "author": "Vinicius Rodrigues",
   "license": "ISC",
