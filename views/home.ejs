@@ -1,0 +1,32 @@
+<%- include("./partials/header") %>
+<div class="ui form">
+  <div class="field">
+    <label>Used Cars for Sale</label>
+    <form action="/cars/search" method="POST">
+      <div class="ui icon input">
+        <input
+          class="prompt"
+          type="text"
+          name="keyword"
+          placeholder="Search by Make, Model or Keyword"
+        />
+        <i class="search icon"></i>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="ui container">
+  <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+        Imagine-a-Company
+      </h1>
+      <h2>Shop used cars from 10000+ sellers in the US</h2>
+      <div class="ui huge primary button">
+        Get Started <i class="right arrow icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("./partials/footer") %>

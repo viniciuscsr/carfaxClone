@@ -1,0 +1,46 @@
+<%- include("../partials/header") %>
+
+<div class="ui container main text segment">
+  <div class="ui huge header">New Listing</div>
+  <form
+    class="ui form"
+    action="/cars"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div class="field">
+      <label>Make</label><input type="text" name="make" placeholder="Make" />
+    </div>
+    <div class="field">
+      <label>Model</label><input type="text" name="model" placeholder="Model" />
+    </div>
+    <div class="field">
+      <label>Price</label><input type="text" name="price" placeholder="Price" />
+    </div>
+    <div class="field">
+      <label>Year</label><input type="text" name="year" placeholder="Year" />
+    </div>
+    <div class="field">
+      <label>Type</label><input type="text" name="type" placeholder="Type" />
+    </div>
+    <div class="field">
+      <label>Mileage</label
+      ><input type="text" name="mileage" placeholder="Mileage" />
+    </div>
+    <div class="field">
+      <label>ZIP Code</label>
+      <input type="text" name="zip" placeholder="ZIP Code" />
+    </div>
+    <div class="field">
+      <label>Photo</label>
+      <input type="file" name="image" />
+    </div>
+    <div class="field">
+      <label>Description</label><textarea name="description"></textarea>
+    </div>
+
+    <button class="ui basic button red" type="submit">Submit</button>
+  </form>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,62 @@
+<%- include("../partials/header") %>
+
+<div class="ui main text container">
+  <div class="ui form">
+    <div class="field">
+      <label>Used Cars for Sale</label>
+      <form action="/cars/search" method="POST">
+        <div class="ui icon input">
+          <input
+            class="prompt"
+            type="text"
+            name="keyword"
+            placeholder="Search by Make, Model or Keyword"
+          />
+          <i class="search icon"></i>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="ui huge header">Cars</div>
+  <div class="ui top attached">
+    <div class="ui divided items">
+      <% cars.forEach(function(cars){ %>
+
+      <div class="ui unstackable items">
+        <div class="item">
+          <div class="image">
+            <a href="/cars/<%=cars._id%>" class="ui medium image">
+              <img src="<%= cars.image %>" alt=""
+            /></a>
+          </div>
+          <div class="content">
+            <a href="/cars/<%=cars._id%>" class="header"
+              ><%=cars.make %> <%=cars.model %></a
+            >
+            <div class="meta">
+              <span><%=cars.year %></span>
+            </div>
+            <div class="description">
+              <p><%-cars.description.substring(0,140)%>...</p>
+            </div>
+            <div class="extra">
+              <a href="/cars/<%=cars._id%>">Additional Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <h2><a href="/cars/<%=cars._id%>"><%=cars.make %> <%=cars.model %></a></h2>
+                <div class="image">
+                  <a href="/cars/<%=cars._id%>" class="ui medium image"> <img src="<%= cars.image %>" alt=""></a>
+                </div>
+                <h4><%=cars.year %></h4>
+                <p><%-cars.description.substring(0,100)%>...</p>
+                <a href="/cars/<%=cars._id%>">Additional Details</a> -->
+
+      <% }); %>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

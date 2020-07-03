@@ -1,0 +1,23 @@
+i.icon{
+    font-size: 1.5em;
+}
+
+.buttons_align {
+    display: inline;
+}
+
+.button.green.basic {
+    align-content: flex-end;
+}
+
+
+
+#content-wrap {
+    margin-bottom: 15em;
+}
+
+.ui.footer.segment {
+    position: absolute;
+    bottom: 0;
+    height: 15em;
+}

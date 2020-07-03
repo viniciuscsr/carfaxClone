@@ -1,0 +1,92 @@
+<%- include("../partials/header") %>
+
+<div class="ui main text">
+    <div class="ui grid">
+        <div class="four wide column computer only">
+            <div class="ui list">
+                <div class="item">
+                  <div class="header">Cars</div>
+                  A lovely city
+                </div>
+                <div class="item">
+                  <div class="header">SUVs</div>
+                  Also quite a lovely city
+                </div>
+                <div class="item">
+                  <div class="header">Sedans</div>
+                  Sometimes can be a lovely city
+                </div>
+                <div class="item">
+                  <div class="header">Sport Cars</div>
+                  What a lovely city
+                </div>
+              </div>
+        </div>
+        <div class="twelve wide computer sixteen wide mobile column">
+            <div class="ui huge header"><%= cars.make %> <%= cars.model %></div>
+            <div class="ui top attached ">
+                <div class="item">
+                    <div class="content">
+                        <img class="ui image" src="/<%= cars.image %>" >
+                    </div>
+                    <div class="description">
+                        <p><%= cars.year %></p>
+                        <div class="ui right aligned container"><p><%= cars.price %></p></div>
+                        <p><%- cars.description %></p>
+                    </div>
+                    <p>
+                      <em> Submitted By <a href="#"><%= cars.author.email %> </a></em>
+                    </p>
+                   
+                    <div class="container">
+
+                      <% if(currentUser && cars.author.id.equals(currentUser._id)){ %> 
+                      <a class="ui orange basic button" href="/cars/<%= cars._id %>/edit">Edit</a>
+                        <form class="buttons_align" action="/cars/<%= cars._id %>?_method=DELETE" method="POST">
+                            <button class="ui red basic button">Delete</button>
+                        </form>
+                      <% } %>
+
+                    </div>
+
+                        <div class="ui minimal comments">
+                            <h3 class="ui dividing header">Comments
+                                
+                                <a href="/cars/<%= cars._id%>/comments/new" >
+                                    <button type="button" class="button ui basic green right align">Add New Comment</button>
+                                </a>
+                            </h3>
+                            <% cars.comments.forEach(function(comment){ %>
+                            <div class="comment">
+                              <!-- <a class="avatar">
+                                <img src="/images/avatar/small/matt.jpg">
+                              </a> -->
+                              <div class="content">
+                                <a class="author"><%= comment.author.email %></a>
+                                <div class="metadata">
+                                  <span class="date">Today at 5:42PM</span>
+                                </div>
+                                <div class="text">
+                                    <%= comment.text %> 
+                                    <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
+                                    <a href="/cars/<%= cars._id%>/comments/<%=comment._id%>/edit">
+                                      <button type="button" class="button small basic orange">Edit</button>
+                                    </a>
+                                    <form action="/cars/<%= cars._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                      <button type="submit" class="button small basic orange">Delete</button>
+                                    </form>
+                                    <%}%>
+                                </div>
+                              </div>
+                            </div> 
+                              <% }) %>     
+                        <//div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

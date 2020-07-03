@@ -1,0 +1,54 @@
+<%- include("./partials/header") %> <%= results._source %>
+
+<div class="ui main text container">
+  <div class="ui form">
+    <div class="field">
+      <label>Used Cars for Sale</label>
+      <form action="/cars/search" method="POST">
+        <div class="ui icon input">
+          <input
+            class="prompt"
+            type="text"
+            name="keyword"
+            placeholder="Search by Make, Model or Keyword"
+          />
+          <i class="search icon"></i>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="ui huge header">Search Results</div>
+  <div class="ui top attached">
+    <div class="ui divided items">
+      <% results.forEach(function(results){ %>
+
+      <div class="ui unstackable items">
+        <div class="item">
+          <div class="image">
+            <a href="/cars/<%=results._id%>" class="ui medium image">
+              <img src="/<%= results._source.image %>" alt=""
+            /></a>
+          </div>
+          <div class="content">
+            <a href="/cars/<%=results._id%>" class="header"
+              ><%=results._source.make %> <%=results._source.model %></a
+            >
+            <div class="meta">
+              <span><%=results._source.year %></span>
+            </div>
+            <div class="description">
+              <p><%-results._source.description.substring(0,140)%>...</p>
+            </div>
+            <div class="extra">
+              <a href="/cars/<%=results._id%>">Additional Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% }); %>
+    </div>
+  </div>
+</div>
+
+<%- include("./partials/footer") %>
