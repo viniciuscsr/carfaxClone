@@ -17,7 +17,7 @@ const commentRoutes = require('./routes/comments'),
 // APP CONFIG
 
 mongoose.connect(
-  'mongodb+srv://Vinicius:vini1306@cluster0-4gadr.mongodb.net/usedCarsApp?retryWrites=true&w=majority',
+  process.env.DATABASEURL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
