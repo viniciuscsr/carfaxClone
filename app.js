@@ -24,6 +24,7 @@ mongoose.connect(
   },
   () => {
     console.log('DB connected');
+    console.log(process.env.DATABASEURL);
   }
 );
 // mongoose.connect('mongodb://localhost/carros', {
