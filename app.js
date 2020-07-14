@@ -17,20 +17,16 @@ const commentRoutes = require('./routes/comments'),
 // APP CONFIG
 
 mongoose.connect(
-  process.env.DATABASEURL,
+  process.env.DATABASEURL || 'mongodb://localhost/carros',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   },
   () => {
     console.log('DB connected');
-    console.log(process.env.DATABASEURL);
   }
 );
-// mongoose.connect('mongodb://localhost/carros', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
