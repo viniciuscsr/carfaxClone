@@ -12,7 +12,8 @@ const express = require('express'),
 
 const commentRoutes = require('./routes/comments'),
   carRoutes = require('./routes/cars'),
-  indexRoutes = require('./routes/index');
+  indexRoutes = require('./routes/index'),
+  userRoutes = require('./routes/users');
 
 // APP CONFIG
 
@@ -66,6 +67,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(indexRoutes);
+app.use(userRoutes);
 app.use('/cars', carRoutes);
 app.use('/cars/:id/comments', commentRoutes);
 
