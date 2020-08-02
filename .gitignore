@@ -3,3 +3,5 @@
 
 # Prettier
 .prettierignore
+
+.env

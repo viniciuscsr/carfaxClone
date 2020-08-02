@@ -1,9 +1,10 @@
 const carController = {};
 
 const car = require('../models/cars');
-const elasticsearch = require('@elastic/elasticsearch');
+const bonsai_url = process.env.BONSAI_URL;
+const elasticsearch = require('elasticsearch');
 const client = new elasticsearch.Client({
-  node: 'http://localhost:9200',
+  host: bonsai_url,
 });
 
 carController.index = function (req, res) {
@@ -21,8 +22,6 @@ carController.getNewCar = function (req, res) {
 };
 
 carController.postNewCar = async function (req, res) {
-  console.log(req.file);
-  console.log(req.body);
   const newListing = new car({
     make: req.body.make,
     model: req.body.model,
@@ -50,26 +49,27 @@ carController.postNewCar = async function (req, res) {
 
   try {
     await newListing.save();
-    res.redirect(`/cars/${newListing._id}`);
+    console.log(newListing._id);
   } catch (err) {
     console.log(err);
     res.render('cars/new');
   }
 
-  client.index(
-    {
+  try {
+    console.log(newListing._id);
+    console.log(typeof newListing._id);
+    const elasticEntry = await client.index({
       index: 'cars',
+      type: '_doc',
       body: indexEntry,
-      id: newListing._id,
-    },
-    function (err, resp, status) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(resp);
-      }
-    }
-  );
+      id: toString(newListing._id),
+    });
+    console.log(elasticEntry);
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.redirect(`/cars/${newListing._id}`);
 };
 
 carController.getCarById = function (req, res) {
@@ -118,45 +118,40 @@ carController.updateCar = async function (req, res) {
   });
 };
 
-carController.deleteCar = function (req, res) {
-  car.findByIdAndRemove(req.params.id, function (err) {
-    if (err) {
-      console.log(err);
-      res.redirect('/cars');
-    } else {
-      client.delete(
-        {
-          index: 'cars',
-          id: req.params.id,
-        },
-        function (err, resp, status) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(resp);
-          }
-        }
-      );
-      res.redirect('/cars');
-    }
-  });
+carController.deleteCar = async function (req, res) {
+  // deleting from db
+  try {
+    await car.findByIdAndRemove(req.params.id);
+  } catch (err) {
+    console.log(err);
+    res.redirect('/cars');
+  }
+  // deleting from elasticsearch index
+  try {
+    await client.delete({
+      index: 'cars',
+      id: tostring(req.params.id),
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  res.redirect('/cars');
 };
 
 carController.searchCar = async function (req, res) {
   const keyword = req.body.keyword;
-  client.search(
-    {
+
+  let searchResponse;
+  try {
+    searchResponse = await client.search({
       index: 'cars',
       q: keyword,
-    },
-    function (err, resp) {
-      if (err) {
-        console.log(err);
-      }
-      res.render('search', { results: resp.body.hits.hits });
-      return console.log(resp.body.hits.hits);
-    }
-  );
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  console.log(searchResponse.hits.hits);
+  res.render('search', { results: searchResponse.hits.hits });
 };
 
 module.exports = carController;
