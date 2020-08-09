@@ -5,3 +5,7 @@
 .prettierignore
 
 .env
+
+/uploads/*
+
+!uploads/.gitkeep
