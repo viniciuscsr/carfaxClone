@@ -1,23 +1,32 @@
-i.icon{
-    font-size: 1.5em;
+i.icon {
+  font-size: 1.5em;
 }
 
 .buttons_align {
-    display: inline;
+  display: inline;
 }
 
 .button.green.basic {
-    align-content: flex-end;
+  align-content: flex-end;
 }
 
-
-
 #content-wrap {
-    margin-bottom: 15em;
+  margin-bottom: 15em;
 }
 
 .ui.footer.segment {
-    position: absolute;
-    bottom: 0;
-    height: 15em;
+  position: absolute;
+  bottom: 0;
+  height: 15em;
+}
+
+#content-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+
+#show-page-subheader {
+  padding-top: 1rem;
 }

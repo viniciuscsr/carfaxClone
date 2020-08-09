@@ -47,26 +47,20 @@ carController.postNewCar = async function (req, res) {
     description: req.body.description,
   };
 
+  let savedCar;
   try {
-    await newListing.save();
+    savedCar = await newListing.save();
     console.log(newListing._id);
+    console.log(savedCar);
+    esIndexedItem = await client.index({
+      index: 'cars',
+      body: indexEntry,
+      id: toString(savedCar._id),
+    });
+    console.log(esIndexedItem);
   } catch (err) {
     console.log(err);
     res.render('cars/new');
-  }
-
-  try {
-    console.log(newListing._id);
-    console.log(typeof newListing._id);
-    const elasticEntry = await client.index({
-      index: 'cars',
-      type: '_doc',
-      body: indexEntry,
-      id: toString(newListing._id),
-    });
-    console.log(elasticEntry);
-  } catch (err) {
-    console.log(err);
   }
 
   res.redirect(`/cars/${newListing._id}`);
@@ -140,7 +134,8 @@ carController.deleteCar = async function (req, res) {
 
 carController.searchCar = async function (req, res) {
   const keyword = req.body.keyword;
-
+  const q = req.query.q;
+  console.log(q);
   let searchResponse;
   try {
     searchResponse = await client.search({

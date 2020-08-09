@@ -2,41 +2,27 @@
 
 <div class="ui main text">
     <div class="ui grid">
-        <div class="four wide column computer only">
-            <div class="ui list">
-                <div class="item">
-                  <div class="header">Cars</div>
-                  A lovely city
-                </div>
-                <div class="item">
-                  <div class="header">SUVs</div>
-                  Also quite a lovely city
-                </div>
-                <div class="item">
-                  <div class="header">Sedans</div>
-                  Sometimes can be a lovely city
-                </div>
-                <div class="item">
-                  <div class="header">Sport Cars</div>
-                  What a lovely city
-                </div>
+        <div id="content-container" class="sixteen wide computer sixteen wide mobile column">
+            <h1 class="ui header"><%= cars.year %> <%= cars.make %> <%= cars.model %>
+              <div id="show-page-subheader" class="sub header">
+                <i class="small map marker alternate icon"></i>ZIP code <%= cars.zip %> <i class="small tachometer alternate icon"></i>   <%= cars.mileage %> Miles
               </div>
-        </div>
-        <div class="twelve wide computer sixteen wide mobile column">
-            <div class="ui huge header"><%= cars.make %> <%= cars.model %></div>
+            </h1>
             <div class="ui top attached ">
                 <div class="item">
                     <div class="content">
-                        <img class="ui image" src="/<%= cars.image %>" >
+                        <img class="ui centered image" src="/<%= cars.image %>" >
                     </div>
-                    <div class="description">
-                        <p><%= cars.year %></p>
-                        <div class="ui right aligned container"><p><%= cars.price %></p></div>
-                        <p><%- cars.description %></p>
-                    </div>
+                    <h2 class="ui header">
+                      <i class=" dollar sign icon"></i>
+                      <div class="content">
+                        <%= cars.price %>
+                      </div>
+                    </h2>
                     <p>
                       <em> Submitted By <a href="#"><%= cars.author.email %> </a></em>
                     </p>
+                    <p><%- cars.description %></p>
                    
                     <div class="container">
 
@@ -67,10 +53,10 @@
                                     <%= comment.text %> 
                                     <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
                                     <a href="/cars/<%= cars._id%>/comments/<%=comment._id%>/edit">
-                                      <button type="button" class="button small basic orange">Edit</button>
+                                      <button type="button" class="ui button mini basic orange">Edit</button>
                                     </a>
-                                    <form action="/cars/<%= cars._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                                      <button type="submit" class="button small basic orange">Delete</button>
+                                    <form class="buttons_align" action="/cars/<%= cars._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                      <button type="submit" class="ui button mini basic red">Delete</button>
                                     </form>
                                     <%}%>
                                 </div>
