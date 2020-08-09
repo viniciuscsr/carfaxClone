@@ -1,5 +1,5 @@
 const middlewareObj = {};
-const Comment = require('../models/comments');
+const Review = require('../models/reviews');
 const car = require('../models/cars');
 
 middlewareObj.checkListingOwnership = function (req, res, next) {
@@ -25,15 +25,15 @@ middlewareObj.checkListingOwnership = function (req, res, next) {
   }
 };
 
-middlewareObj.checkCommentOwnership = function (req, res, next) {
+middlewareObj.checkReviewOwnership = function (req, res, next) {
   if (req.isAuthenticated()) {
-    Comment.findById(req.params.comment_id, function (err, foundComment) {
+    Review.findById(req.params.review_id, function (err, foundReview) {
       if (err) {
         console.log(err);
         res.redirect('back');
       } else {
         // does user own the listing
-        if (foundComment.author.id.equals(req.user.id)) {
+        if (foundReview.author.id.equals(req.user.id)) {
           next();
         } else {
           req.flash('error', "You don't have permission to do that");

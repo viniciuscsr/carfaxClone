@@ -17,10 +17,10 @@ const carSchema = new mongoose.Schema({
     email: String,
   },
   description: String,
-  comments: [
+  reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
+      ref: 'Review',
     },
   ],
 });

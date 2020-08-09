@@ -10,7 +10,7 @@ const express = require('express'),
 
 // REQUIRING ROUTES
 
-const commentRoutes = require('./routes/comments'),
+const reviewRoutes = require('./routes/reviews'),
   carRoutes = require('./routes/cars'),
   indexRoutes = require('./routes/index'),
   userRoutes = require('./routes/users');
@@ -69,7 +69,7 @@ app.use(function (req, res, next) {
 app.use(indexRoutes);
 app.use(userRoutes);
 app.use('/cars', carRoutes);
-app.use('/cars/:id/comments', commentRoutes);
+app.use('/cars/:id/reviews', reviewRoutes);
 
 app.listen(process.env.PORT || 5000, function () {
   console.log('SERVER IS RUNNING ON PORT 5000');

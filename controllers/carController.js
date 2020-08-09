@@ -69,7 +69,7 @@ carController.postNewCar = async function (req, res) {
 carController.getCarById = function (req, res) {
   car
     .findById(req.params.id)
-    .populate('comments')
+    .populate('reviews')
     .exec(function (err, foundListing) {
       if (err) {
         console.log(err);

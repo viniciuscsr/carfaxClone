@@ -36,26 +36,26 @@
                     </div>
 
                         <div class="ui minimal comments">
-                            <h3 class="ui dividing header">Comments
+                            <h3 class="ui dividing header">Reviews
                                 
-                                <a href="/cars/<%= cars._id%>/comments/new" >
-                                    <button type="button" class="button ui basic green right align">Add New Comment</button>
+                                <a href="/cars/<%= cars._id%>/reviews/new" >
+                                    <button type="button" class="button ui basic green right align">Add New review</button>
                                 </a>
                             </h3>
-                            <% cars.comments.forEach(function(comment){ %>
+                            <% cars.reviews.forEach(function(review){ %>
                             <div class="comment">
                               <div class="content">
-                                <a class="author"><%= comment.author.email %></a>
+                                <a class="author"><%= review.author.email %></a>
                                 <div class="metadata">
                                   <span class="date">Today at 5:42PM</span>
                                 </div>
                                 <div class="text">
-                                    <%= comment.text %> 
-                                    <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
-                                    <a href="/cars/<%= cars._id%>/comments/<%=comment._id%>/edit">
+                                    <%= review.text %> 
+                                    <% if(currentUser && review.author.id.equals(currentUser._id)){%>
+                                    <a href="/cars/<%= cars._id%>/reviews/<%=review._id%>/edit">
                                       <button type="button" class="ui button mini basic orange">Edit</button>
                                     </a>
-                                    <form class="buttons_align" action="/cars/<%= cars._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                    <form class="buttons_align" action="/cars/<%= cars._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                                       <button type="submit" class="ui button mini basic red">Delete</button>
                                     </form>
                                     <%}%>

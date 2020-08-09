@@ -1,11 +1,15 @@
 <%- include("../partials/header") %>
 
 <div class="ui container main text segment">
-  <div class="ui huge header">Add a New Comment to <%= cars.model %></div>
-  <form class="ui form" action="/cars/<%= cars._id %>/comments" method="POST">
+  <div class="ui huge header">Edit Your Review</div>
+  <form
+    class="ui form"
+    action="/cars/<%=cars_id%>/reviews/<%=review._id%>?_method=PUT"
+    method="POST"
+  >
     <div class="field">
       <label>Text</label
-      ><input type="text" name="comments[text]" placeholder="Text" />
+      ><input type="text" name="reviews[text]" value="<%=review.text%>" />
     </div>
     <button class="ui basic button red" type="submit">Submit</button>
   </form>
