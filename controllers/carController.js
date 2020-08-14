@@ -40,13 +40,10 @@ carController.postNewCar = async function (req, res) {
       index: 'cars',
       body: indexEntry,
     });
-    console.log(esIndexedItem);
   } catch (err) {
     console.log(err);
     res.render('cars/new');
   }
-
-  console.log(esIndexedItem._id);
 
   const newListing = new car({
     _id: esIndexedItem._id,
@@ -65,8 +62,6 @@ carController.postNewCar = async function (req, res) {
   let savedCar;
   try {
     savedCar = await newListing.save();
-    console.log(newListing._id);
-    console.log(savedCar);
   } catch (err) {
     console.log(err);
     res.render('cars/new');
