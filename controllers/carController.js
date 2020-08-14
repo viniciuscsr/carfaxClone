@@ -22,19 +22,6 @@ carController.getNewCar = function (req, res) {
 };
 
 carController.postNewCar = async function (req, res) {
-  const newListing = new car({
-    make: req.body.make,
-    model: req.body.model,
-    price: req.body.price,
-    year: req.body.year,
-    type: req.body.type,
-    zip: req.body.zip,
-    mileage: req.body.mileage,
-    image: req.file.path,
-    description: req.body.description,
-    author: { id: req.user._id, email: req.user.email },
-  });
-
   const indexEntry = {
     make: req.body.make,
     model: req.body.model,
@@ -47,17 +34,39 @@ carController.postNewCar = async function (req, res) {
     description: req.body.description,
   };
 
+  let esIndexedItem;
+  try {
+    esIndexedItem = await client.index({
+      index: 'cars',
+      body: indexEntry,
+    });
+    console.log(esIndexedItem);
+  } catch (err) {
+    console.log(err);
+    res.render('cars/new');
+  }
+
+  console.log(esIndexedItem._id);
+
+  const newListing = new car({
+    _id: esIndexedItem._id,
+    make: req.body.make,
+    model: req.body.model,
+    price: req.body.price,
+    year: req.body.year,
+    type: req.body.type,
+    zip: req.body.zip,
+    mileage: req.body.mileage,
+    image: req.file.path,
+    description: req.body.description,
+    author: { id: req.user._id, email: req.user.email },
+  });
+
   let savedCar;
   try {
     savedCar = await newListing.save();
     console.log(newListing._id);
     console.log(savedCar);
-    esIndexedItem = await client.index({
-      index: 'cars',
-      body: indexEntry,
-      id: toString(savedCar._id),
-    });
-    console.log(esIndexedItem);
   } catch (err) {
     console.log(err);
     res.render('cars/new');
@@ -124,7 +133,7 @@ carController.deleteCar = async function (req, res) {
   try {
     await client.delete({
       index: 'cars',
-      id: tostring(req.params.id),
+      id: req.params.id,
     });
   } catch (err) {
     console.log(err);
