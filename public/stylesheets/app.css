@@ -30,3 +30,15 @@ i.icon {
 #show-page-subheader {
   padding-top: 1rem;
 }
+
+#homepage-search-feature {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.centered-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
